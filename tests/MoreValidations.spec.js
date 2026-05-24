@@ -30,3 +30,25 @@ await page.locator("#mousehover").hover();
 //console.log(textCheck.split(" ")[1]);
 
 })
+
+test("Screenshot test", async({page})=>{
+await page.goto("https://rahulshettyacademy.com/AutomationPractice/");
+await expect(page.locator("#displayed-text")).toBeVisible();
+
+//Taking screenshot of particular locator
+await page.locator("#displayed-text").screenshot({path:"partialscreenshot.png"});
+
+page.locator("#hide-textbox").click();
+
+//Full page screenshot
+await page.screenshot({path:"Screenshot.png"});
+
+await expect(page.locator("#displayed-text")).toBeHidden();
+})
+
+test.only("Visual testing", async({page})=>{
+
+await page.goto("https://google.com");
+expect(await page.screenshot()).toMatchSnapshot("landing.png")
+
+})
